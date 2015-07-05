@@ -1,0 +1,60 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="modal-title" id="myModalLabel"> Registro de aula</h2>
+        </div>
+
+        <div class="modal-body">
+            <form method="post" id="formulario-registro-aula">
+                {% csrf_token %}
+
+                <div id="mensajes">
+                    {% if mensajes %}
+                        <div class="{{ clase }}">
+                            {% for mensaje in mensajes %}
+                                <p>{{ mensaje }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="formulario">
+
+                    <p class="form-registro">
+                        <label>{{ formulario.profesor.label }}</label>
+                        {{ formulario.profesor }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.asignatura.label }}</label>
+                        {{ formulario.asignatura }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.limite.label }}</label>
+                        {{ formulario.limite }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.fecha_fin.label }}</label>
+                        {{ formulario.fecha_fin }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.descripcion.label }}</label>
+                        {{ formulario.descripcion }}
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-modal-close-modal">Close </button>
+            <button type="button" class="btn btn-success" onclick="crear_aula()">Crear</button>
+        </div>
+    </div><!-- /.modal-contenido -->
+</div><!-- /.modal-dialog -->

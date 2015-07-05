@@ -1,0 +1,42 @@
+<form method="post" id="formulario-registro-usuario">
+{% csrf_token %}
+
+    <div id="mensajes">
+        {% if mensajes.mensajes %}
+            <div class="{{ mensajes.clase }}">
+                {% for mensaje in mensajes.mensajes %}
+                    <p>{{ mensaje }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="formulario">
+        <p class="form-registro">
+            <label>{{ formulario.username.label }}</label>
+            {{ formulario.username }}
+        </p>
+        <p  class="form-registro">
+            <label>{{ formulario.email.label }}</label>
+            {{ formulario.email }}
+        </p>
+        <p class="form-registro">
+            <label>{{ formulario.password1.label }}</label>
+            {{ formulario.password1 }}
+        </p>
+
+        <p class="form-registro">
+            <label>{{ formulario.password2.label }}</label>
+            {{ formulario.password2 }}
+        </p>
+
+    </div>
+</form>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#usuario").tooltip({title:'{{ formulario.username.help_text }}',trigger:'focus',placement:'right'});
+        $("#email").tooltip({title:'{{ formulario.email.help_text }}',trigger:'focus',placement:'right'});
+        $("#password2").tooltip({title:'{{ formulario.password2.help_text }}',trigger:'focus',placement:'right'});
+    });
+</script>

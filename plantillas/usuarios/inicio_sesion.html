@@ -1,0 +1,34 @@
+<form method="post" id="formulario-inicio-sesion">
+    {% csrf_token %}
+
+    <div id="mensajes">
+        {% if mensajes %}
+            <div class="alert alert-danger">
+                {% for mensaje in mensajes %}
+                    <p>{{ mensaje }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="formulario">
+        <p class="form-registro">
+            <label>{{ formulario.username.label }}</label>
+            {{ formulario.username }}
+        </p>
+
+        <p class="form-registro">
+            <label>{{ formulario.password.label }}</label>
+            {{ formulario.password }}
+        </p>
+
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#usuario").tooltip({title:'{{ formulario.username.help_text }}',trigger:'focus',placement:'right'});
+        $("#password").tooltip({title:'Introduce tu password',trigger:'focus',placement:'right'});
+    });
+</script>

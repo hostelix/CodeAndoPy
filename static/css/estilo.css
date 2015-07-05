@@ -1,0 +1,36 @@
+.formulario {
+	padding-left: 30%;
+	padding-right: 35%;
+	padding-top: 5%;
+
+}
+
+#formulario-registro {
+
+}
+
+.form-registro {
+
+	text-align: center;
+}
+
+.contenedor {
+	margin-top: 8%;
+
+}
+
+.datos-personales {
+	font-size: 18px;
+	border:10px;
+	border-radius: 5px;
+	border-color: black;
+
+}
+
+#logo-bienvenida{
+
+	margin-left: 35%;
+	height: 400px;
+	width: 400px;
+
+}

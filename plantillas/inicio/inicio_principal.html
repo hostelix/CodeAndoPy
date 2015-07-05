@@ -1,0 +1,176 @@
+{% extends "layout/plantilla_base_inicio.html" %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <div class="page-header form-registro" >
+        {% if datos_persona %}
+            {% if datos_persona.get_tipo_usuario == "Usuario" %}
+                <img src="{{ STATIC_URL }}images/iconos/algunas/Student-3-128.png">
+            {% elif datos_persona.get_tipo_usuario == "Profesor"  %}
+                <img src="{{ STATIC_URL }}images/iconos/algunas/Boss-3-128.png">
+            {% else %}
+                <img src="{{ STATIC_URL }}images/iconos/algunas/Man-16-128.png">
+            {% endif %}
+            <h1>Bienvenido
+
+            <small>{
+                    {{ datos_persona.get_nombre_completo|capfirst }}
+                }
+            </small>
+            </h1>
+            <span class='label label-info'>{{ datos_persona.get_tipo_usuario }}</span>
+            <span class='label label-warning'>{{ datos_persona.get_permiso }}</span><br>
+            {% if datos_profe %}
+                <span class='label label-success'>{{ datos_profe.especialidad | capfirst }}</span>
+            {% endif %}
+            <hr>
+        {% else %}
+            <div style="padding: 0px 30px 0px 30px;">
+                <div class="jumbotron alert" style="border-radius: 40px">
+                  <h2>No se han registrado tus datos personales</h2>
+                  <p>Presione el boton "Registrar" para comenzar el registro..</p><br>
+                  <p><a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalRegistroPersona" id="btn-open-modal-registro-persona">Registrar</a></p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+   <div class="panel panel-default" style="margin:20px">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="glyphicon glyphicon-th"></span> Acciones </h3>
+        </div>
+
+        <div class="panel-body row">
+            <table style="margin-left:2%">
+                <td  style="padding: 10px ">
+                    <a href="#" data-toggle="modal" data-target="#modalMostrarAulas" class="thumbnail" id="mostrar-aulas">
+                        <img  src="{{ STATIC_URL }}images/img-aulas.png" style="width: 128px; height: 128px; " alt="aulas" class="img-circle">
+                    </a>
+                </td>
+
+                <td  style="padding: 10px">
+                    <a href="/blog" class="thumbnail" id="ir-blogs">
+                        <img src="{{ STATIC_URL }}images/iconos/algunas/Chat-2-128.png"  alt="blogs">
+                    </a>
+                </td>
+
+                {% if datos_persona.get_tipo_usuario == "Profesor" %}
+                    {% if not datos_profe %}
+                        <td  style="padding: 10px">
+                            <a href="#" data-toggle="modal" data-target="#modalRegistroProfesor" class="thumbnail" id="modal-registro-profesor">
+                                <img src="{{ STATIC_URL }}images/iconos/algunas/Checklist-128.png"  alt="registrar-profesor">
+                            </a>
+                        </td>
+                    {% endif %}
+
+                {% endif %}
+
+
+                <td  style="padding: 10px">
+                    <a href="#" class="thumbnail" id="mostrar-editar">
+                        <img src="{{ STATIC_URL }}images/iconos/algunas/Settings-2-128.png" alt="aulas">
+                    </a>
+                </td>
+
+
+            </table>
+        </div>
+    </div>
+
+
+
+    {% if datos_persona.permiso.tipo == "PROFESOR" %}
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin:20px;">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#opciones-usuario" aria-expanded="false" aria-controls="opciones-usuario">
+                        <span class="glyphicon glyphicon-cog"></span> Acciones Avanzadas
+                    </a>
+                </h4>
+            </div>
+
+            <div id="opciones-usuario" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+
+                    <table style="margin-left:5%">
+                        <td  style="padding: 10px 10px 0 10px">
+                            <a data-toggle="modal" data-target="#modalCrearAulas" class="thumbnail" id="modal-crear-aula">
+                                <img  src="{{ STATIC_URL }}images/iconos/algunas/Conveyor-Belt-128.png"  alt="crear_aulas">
+                            </a>
+                        </td>
+
+                        <td  style="padding: 10px 10px 0 10px">
+                            <a data-toggle="modal" data-target="#modalCrearProfesor" class="thumbnail" id="modal-crear-profesor">
+                                <img src="{{ STATIC_URL }}images/iconos/algunas/Boss-3-128.png"  alt="registrar-profe">
+                            </a>
+                        </td>
+
+                        <td  style="padding: 10px">
+                            <a href="#" data-toggle="modal" data-target="#modalRegistroAsignatura" class="thumbnail" id="modal-registro-asignatura">
+                                <img src="{{ STATIC_URL }}images/iconos/algunas/Mind-Map-Paper-128.png"  alt="aulas">
+                            </a>
+                        </td>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+  <!--Modal  mostrar aulas-->
+  <div class="modal fade" id="modalMostrarAulas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="contenido-ajax-mostrar-aulas"></div>
+  </div><!-- /.modal -->
+
+  <!--Modal  crear aulas -->
+  <div class="modal fade" id="modalCrearAulas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="contenido-ajax-aula"></div>
+  </div><!-- /.modal -->
+
+  <!--Modal  crear profesor -->
+  <div class="modal fade" id="modalCrearProfesor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="contenido-ajax-crear-profesor"></div>
+  </div><!-- /.modal -->
+
+  <!--Modal  registro profesor -->
+  <div class="modal fade" id="modalRegistroProfesor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="contenido-ajax-registro-profesor"></div>
+  </div><!-- /.modal -->
+
+  <!--Modal  crear asignatura -->
+  <div class="modal fade" id="modalCrearAsignatura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="contenido-ajax-crear-asignatura"></div>
+  </div><!-- /.modal -->
+
+  <!--Modal  registro asignatura -->
+  <div class="modal fade" id="modalRegistroAsignatura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="contenido-ajax-registro-asignatura"></div>
+  </div><!-- /.modal -->
+
+<!--Modal  registro persona -->
+  <div class="modal fade" id="modalRegistroPersona" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 class="modal-title" id="myModalLabel"> Registro datos personales</h2>
+            </div>
+
+            <div class="modal-body" id="contenido-ajax-registro-persona">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-modal-close-modal">Close </button>
+                <button type="button" class="btn btn-success" id="btn-modal-registrar-datos">Registrar Datos</button>
+            </div>
+        </div><!-- /.modal-contenido -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+
+{% endblock %}

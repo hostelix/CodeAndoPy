@@ -1,0 +1,67 @@
+
+            <form method="post" id="formulario-registro-persona">
+                {% csrf_token %}
+
+                <div id="mensajes">
+                    {% if mensajes %}
+                        <div class="alert alert-danger">
+                            {% for mensaje in mensajes %}
+                                <p>{{ mensaje }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="formulario">
+                    <input name="usuario" value="{{ usuario.id }}" type="hidden">
+
+                    <p class="form-registro">
+                        <label>{{ formulario.primer_nombre.label }}</label>
+                        {{ formulario.primer_nombre }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.segundo_nombre.label }}</label>
+                        {{ formulario.segundo_nombre }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.primer_apellido.label }}</label>
+                        {{ formulario.primer_apellido }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.segundo_apellido.label }}</label>
+                        {{ formulario.segundo_apellido }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.cedula.label }}</label>
+                        {{ formulario.cedula }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.sexo.label }}</label>
+                        {{ formulario.sexo }}
+                    </p>
+
+                    <p class="form-registro">
+                        <label>{{ formulario.fecha_nacimiento.label }}</label>
+                        {{ formulario.fecha_nacimiento }}
+                    </p>
+
+                </div>
+            </form>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#primer_nombre").tooltip({title:'{{ formulario.primer_nombre.help_text }}',trigger:'focus',placement:'right'});
+        $("#segundo_nombre").tooltip({title:'{{ formulario.segundo_nombre.help_text }}',trigger:'focus',placement:'right'});
+        $("#primer_apellido").tooltip({title:'{{ formulario.primer_apellido.help_text }}',trigger:'focus',placement:'right'});
+        $("#segundo_apellido").tooltip({title:'{{ formulario.segundo_apellido.help_text }}',trigger:'focus',placement:'right'});
+        $("#cedula").tooltip({title:'{{ formulario.cedula.help_text }}',trigger:'focus',placement:'right'});
+    });
+</script>

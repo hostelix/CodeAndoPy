@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="UTF-8">
+    <title>{% block titulo %}Inicio{% endblock %}</title>
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/funciones.js"></script>
+    <script src="/static/js/funciones-modales.js"></script>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/estilo.css">
+
+    <link rel="icon" href="{{ STATIC_URL }}images/logo-codeando.png">
+
+    {% block css %}{% endblock %}
+    {% block js %}{% endblock %}
+</head>
+<body>
+
+    <div id="contenedor">
+        {% block contenido %}
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

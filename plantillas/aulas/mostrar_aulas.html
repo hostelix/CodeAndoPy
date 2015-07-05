@@ -1,0 +1,45 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="modal-title" id="myModalLabel"> Registro de aula</h2>
+        </div>
+
+        <div class="modal-body">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Asignatura</th>
+                  <th>Profesor</th>
+                  <th>Limite</th>
+                  <th>Fecha de cierre</th>
+                  <th>Accion</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% if aulas %}
+                  {% for aula in aulas %}
+                    <tr>
+                        <td>{{ aula.id }}</td>
+                        <td>{{ aula.asignatura.nombre|capfirst}}</td>
+                        <td>{{ aula.profesor.persona.get_nombre_completo|capfirst }}</td>
+                        <td>{{ aula.limite }}</td>
+                        <td>{{ aula.fecha_fin }}</td>
+                        <td><a class="btn btn-success btn-sm" onclick="acceder_aula({{ aula.id }})">Entrar</a></td>
+                    </tr>
+                  {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="5">No hay aulas disponibles</td>
+                </tr>
+              {% endif %}
+              </tbody>
+            </table>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-modal-close-modal">Close </button>
+        </div>
+    </div><!-- /.modal-contenido -->
+</div><!-- /.modal-dialog -->
